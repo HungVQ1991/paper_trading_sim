@@ -50,7 +50,7 @@ Lớp cung cấp các phương thức tĩnh (`public static`) thao tác trên da
 #### 2. Tính Tổng Lãi/Lỗ ròng (Total Realized P&L)
 - **Ký hiệu hàm:** `public static double calculateTotalPnL(List<Trade> trades)`
 - **Thuật toán:**
-  $$\text{Total P&L} = \sum_{i=1}^{n} \text{trade}_i.\text{getRealizedPnL}()$$
+  $$\text{Total PnL} = \sum_{i=1}^{n} \text{trade}_i.\text{getRealizedPnL}()$$
 
 #### 3. Tính Mức sụt giảm tài sản tối đa (Max Drawdown - MDD)
 - **Ký hiệu hàm:** `public static double calculateMaxDrawdown(List<Double> equityHistory)`
