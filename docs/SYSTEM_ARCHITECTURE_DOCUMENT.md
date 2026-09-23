@@ -30,9 +30,9 @@ Bảng đối chiếu và định nghĩa các thực thể tài chính áp dụn
 | **Limit Order** | Lệnh mua hoặc bán chỉ thực hiện khi giá thị trường đạt đến mức giá giới hạn chỉ định (`Limit Price`) hoặc tốt hơn. | Lệnh được đưa vào hàng đợi chờ duyệt (`PENDING`); chỉ khớp khi thỏa mãn điều kiện so sánh giá. |
 | **Position (Vị thế)** | Trạng thái nắm giữ một khối lượng cổ phiếu cụ thể kèm giá vốn bình quân gia quyền. | Quản lý theo từng mã: `Số lượng` (`Quantity`) và `Giá vốn trung bình` (`Average Entry Price`). |
 | **Giá vốn bình quân (Average Price)** | Chi phí trung bình để sở hữu một cổ phiếu sau nhiều lần mua tích lũy. | $\text{AvgPrice}_{mới} = \frac{(\text{Qty}_{cũ} \times \text{AvgPrice}_{cũ}) + (\text{Qty}_{thêm} \times \text{Price}_{mua})}{\text{Qty}_{mới}}$ |
-| **Unrealized P&L** | Lãi hoặc lỗ trên sổ sách của các vị thế đang mở, biến động liên tục theo giá thị trường. | $\text{Unrealized P&L} = (\text{CurrentPrice} - \text{AvgPrice}) \times \text{Quantity}$ |
-| **Realized P&L** | Lãi hoặc lỗ thực tế đã chốt khi đóng vị thế (bán cổ phiếu). | $\text{Realized P&L} = (\text{SellPrice} - \text{AvgPrice}) \times \text{SoldQuantity}$ |
-| **Win Rate (Tỷ lệ thắng)** | Tỷ lệ phần trăm các giao dịch đem lại lợi nhuận dương trên tổng số giao dịch đã chốt. | $\text{Win Rate} = \frac{\text{Số lệnh có Realized P&L} > 0}{\text{Tổng số lệnh đã đóng}} \times 100\%$ |
+| **Unrealized P&L** | Lãi hoặc lỗ trên sổ sách của các vị thế đang mở, biến động liên tục theo giá thị trường. | $\text{Unrealized PnL} = (\text{CurrentPrice} - \text{AvgPrice}) \times \text{Quantity}$ |
+| **Realized P&L** | Lãi hoặc lỗ thực tế đã chốt khi đóng vị thế (bán cổ phiếu). | $\text{Realized PnL} = (\text{SellPrice} - \text{AvgPrice}) \times \text{SoldQuantity}$ |
+| **Win Rate (Tỷ lệ thắng)** | Tỷ lệ phần trăm các giao dịch đem lại lợi nhuận dương trên tổng số giao dịch đã chốt. | $\text{Win Rate} = \frac{\text{Số lệnh có Realized PnL} > 0}{\text{Tổng số lệnh đã đóng}} \times 100\%$ |
 | **Max Drawdown (MDD)** | Mức độ sụt giảm phần trăm lớn nhất của giá trị tài khoản tính từ đỉnh cao nhất tới đáy thấp nhất. | $\text{Drawdown}_t = \frac{\text{Peak}_t - \text{Equity}_t}{\text{Peak}_t} \times 100\%$ (lấy giá trị cực đại trong lịch sử). |
 
 ---
