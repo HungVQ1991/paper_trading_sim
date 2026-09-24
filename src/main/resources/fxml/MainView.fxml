@@ -51,15 +51,15 @@
       <HBox spacing="12" styleClass="summary-row">
         <VBox HBox.hgrow="ALWAYS" styleClass="summary-card">
           <Label styleClass="summary-label" text="CASH BALANCE" />
-          <Label styleClass="summary-value" text="$50,000.00" />
+          <Label styleClass="summary-value" text="\$50,000.00" />
         </VBox>
         <VBox HBox.hgrow="ALWAYS" styleClass="summary-card">
           <Label styleClass="summary-label" text="TOTAL EQUITY" />
-          <Label styleClass="summary-value" text="$105,250.00" />
+          <Label styleClass="summary-value" text="\$105,250.00" />
         </VBox>
         <VBox HBox.hgrow="ALWAYS" styleClass="summary-card">
           <Label styleClass="summary-label" text="TOTAL P&amp;L" />
-          <Label styleClass="summary-value profit-text" text="+$5,250.00  (+5.2%)" />
+          <Label styleClass="summary-value profit-text" text="+\$5,250.00  (+5.2%)" />
         </VBox>
       </HBox>
     </VBox>

@@ -8,6 +8,32 @@
   -fx-background-color: #131722;
 }
 
+.dialog-shell {
+  -fx-background-color: #1e222d;
+}
+
+.dialog-title {
+  -fx-font-size: 20px;
+  -fx-font-weight: bold;
+  -fx-text-fill: #f2f3f5;
+}
+
+.dialog-subtitle, .validation-message {
+  -fx-text-fill: #a6a9b2;
+}
+
+.estimate-panel {
+  -fx-background-color: #131722;
+  -fx-background-radius: 4;
+  -fx-padding: 12;
+}
+
+.estimate-value {
+  -fx-font-size: 16px;
+  -fx-font-weight: bold;
+  -fx-text-fill: #26a69a;
+}
+
 .menu-bar, .toolbar {
   -fx-background-color: #1e222d;
 }
@@ -77,6 +103,12 @@
 
 .table-row-cell:filled:selected {
   -fx-background-color: #363c4e;
+}
+
+.text-field, .combo-box {
+  -fx-background-color: #131722;
+  -fx-border-color: #2a2e39;
+  -fx-text-fill: #d1d4dc;
 }
 
 .buy-button {
