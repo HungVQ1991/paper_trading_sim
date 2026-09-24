@@ -1,0 +1,52 @@
+plugins {
+	id 'java'
+	id 'checkstyle'
+	id 'org.springframework.boot' version '3.3.4'
+	id 'io.spring.dependency-management' version '1.1.7'
+	id 'org.openjfx.javafxplugin' version '0.1.0'
+}
+
+group = 'com.trading'
+version = '0.0.1-SNAPSHOT'
+
+java {
+	toolchain {
+		languageVersion = JavaLanguageVersion.of(22)
+	}
+}
+
+javafx {
+	version = '21'
+	modules = ['javafx.controls', 'javafx.fxml']
+}
+
+checkstyle {
+	toolVersion = '10.15.0'
+	configFile = file("${rootDir}/config/checkstyle/google_checks.xml")
+	ignoreFailures = false
+	maxWarnings = 0
+}
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter'
+	implementation 'org.springframework.boot:spring-boot-starter-json'
+
+	// WebSocket Client chuyên dụng kết nối sàn chứng khoán (Twelve Data, Finnhub)
+	implementation 'org.java-websocket:Java-WebSocket:1.5.6'
+
+	compileOnly 'org.projectlombok:lombok'
+	annotationProcessor 'org.projectlombok:lombok'
+
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	testCompileOnly 'org.projectlombok:lombok'
+	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+	testAnnotationProcessor 'org.projectlombok:lombok'
+}
+
+tasks.named('test') {
+	useJUnitPlatform()
+}
