@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.chart.LineChart?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Priority?>
+<?import javafx.scene.layout.VBox?>
+
+<BorderPane xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.trading.sim.ui.MainController" styleClass="app-shell">
+  <top>
+    <VBox spacing="12">
+      <MenuBar>
+        <menus>
+          <Menu text="File">
+            <items>
+              <MenuItem text="Export CSV" />
+              <MenuItem text="Exit" />
+            </items>
+          </Menu>
+          <Menu text="Analytics">
+            <items>
+              <MenuItem text="Open performance report" />
+            </items>
+          </Menu>
+          <Menu text="Settings">
+            <items>
+              <MenuItem text="Market data providers" />
+            </items>
+          </Menu>
+        </menus>
+      </MenuBar>
+      <HBox alignment="CENTER_LEFT" spacing="12" styleClass="toolbar">
+        <Label styleClass="app-title" text="PAPER TRADING" />
+        <Label styleClass="provider-status" text="● Mock provider connected" />
+        <HBox HBox.hgrow="ALWAYS" />
+        <Button onAction="#openOrderDialog" styleClass="buy-button" text="Place Order" />
+      </HBox>
+      <HBox spacing="12" styleClass="summary-row">
+        <VBox HBox.hgrow="ALWAYS" styleClass="summary-card">
+          <Label styleClass="summary-label" text="CASH BALANCE" />
+          <Label styleClass="summary-value" text="$50,000.00" />
+        </VBox>
+        <VBox HBox.hgrow="ALWAYS" styleClass="summary-card">
+          <Label styleClass="summary-label" text="TOTAL EQUITY" />
+          <Label styleClass="summary-value" text="$105,250.00" />
+        </VBox>
+        <VBox HBox.hgrow="ALWAYS" styleClass="summary-card">
+          <Label styleClass="summary-label" text="TOTAL P&amp;L" />
+          <Label styleClass="summary-value profit-text" text="+$5,250.00  (+5.2%)" />
+        </VBox>
+      </HBox>
+    </VBox>
+  </top>
+  <center>
+    <VBox spacing="12" BorderPane.alignment="CENTER">
+      <padding>
+        <Insets bottom="12" left="16" right="16" top="4" />
+      </padding>
+      <SplitPane dividerPositions="0.31" prefHeight="380.0" VBox.vgrow="ALWAYS">
+        <items>
+          <VBox spacing="8" styleClass="panel">
+            <Label styleClass="panel-title" text="WATCHLIST" />
+            <TableView fx:id="watchlistTable" VBox.vgrow="ALWAYS" />
+          </VBox>
+          <VBox spacing="8" styleClass="panel">
+            <Label fx:id="chartTitleLabel" styleClass="panel-title" text="AAPL intraday price" />
+            <LineChart fx:id="priceChart" animated="false" createSymbols="false" legendVisible="false"
+                       VBox.vgrow="ALWAYS">
+              <xAxis>
+                <NumberAxis label="Minute" />
+              </xAxis>
+              <yAxis>
+                <NumberAxis label="Price" />
+              </yAxis>
+            </LineChart>
+          </VBox>
+        </items>
+      </SplitPane>
+      <Separator />
+      <TabPane prefHeight="220.0" VBox.vgrow="ALWAYS">
+        <tabs>
+          <Tab text="Positions">
+            <content>
+              <TableView fx:id="positionsTable" />
+            </content>
+          </Tab>
+          <Tab text="Pending Orders">
+            <content>
+              <TableView fx:id="pendingOrdersTable" />
+            </content>
+          </Tab>
+          <Tab text="Trade History">
+            <content>
+              <TableView fx:id="tradeHistoryTable" />
+            </content>
+          </Tab>
+        </tabs>
+      </TabPane>
+    </VBox>
+  </center>
+</BorderPane>

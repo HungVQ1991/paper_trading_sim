@@ -1,0 +1,103 @@
+.root {
+  -fx-background-color: #131722;
+  -fx-font-family: "Segoe UI", Arial, sans-serif;
+  -fx-text-fill: #d1d4dc;
+}
+
+.app-shell {
+  -fx-background-color: #131722;
+}
+
+.menu-bar, .toolbar {
+  -fx-background-color: #1e222d;
+}
+
+.toolbar {
+  -fx-padding: 10 16 10 16;
+}
+
+.app-title {
+  -fx-font-size: 18px;
+  -fx-font-weight: bold;
+  -fx-text-fill: #f2f3f5;
+}
+
+.provider-status {
+  -fx-text-fill: #26a69a;
+}
+
+.summary-row {
+  -fx-padding: 0 16 0 16;
+}
+
+.summary-card, .panel {
+  -fx-background-color: #1e222d;
+  -fx-border-color: #2a2e39;
+  -fx-border-radius: 4;
+  -fx-background-radius: 4;
+  -fx-padding: 12;
+}
+
+.summary-label, .panel-title {
+  -fx-font-size: 11px;
+  -fx-font-weight: bold;
+  -fx-text-fill: #787b86;
+}
+
+.summary-value {
+  -fx-font-size: 20px;
+  -fx-font-weight: bold;
+  -fx-text-fill: #d1d4dc;
+}
+
+.profit-text {
+  -fx-text-fill: #26a69a;
+}
+
+.loss-text {
+  -fx-text-fill: #ef5350;
+}
+
+.table-view, .tab-pane > .tab-header-area > .tab-header-background {
+  -fx-background-color: #1e222d;
+}
+
+.table-view .column-header, .table-view .filler {
+  -fx-background-color: #2a2e39;
+}
+
+.table-view .column-header .label, .tab-label {
+  -fx-text-fill: #b2b5be;
+}
+
+.table-row-cell {
+  -fx-background-color: #1e222d;
+  -fx-text-background-color: #d1d4dc;
+}
+
+.table-row-cell:filled:selected {
+  -fx-background-color: #363c4e;
+}
+
+.buy-button {
+  -fx-background-color: #26a69a;
+  -fx-font-weight: bold;
+  -fx-text-fill: white;
+}
+
+.buy-button:hover {
+  -fx-background-color: #35b8aa;
+}
+
+.chart-plot-background {
+  -fx-background-color: #1e222d;
+}
+
+.chart-series-line {
+  -fx-stroke: #26a69a;
+  -fx-stroke-width: 2px;
+}
+
+.axis {
+  -fx-tick-label-fill: #787b86;
+}
