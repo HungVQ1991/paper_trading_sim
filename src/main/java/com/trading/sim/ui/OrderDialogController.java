@@ -73,6 +73,7 @@ public final class OrderDialogController {
   }
 
   private void updateEstimate() {
+    validationMessageLabel.setText("");
     if (!hasPositiveQuantity()) {
       estimatedCostLabel.setText("Estimated cost: $0.00");
       return;

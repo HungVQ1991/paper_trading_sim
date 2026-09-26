@@ -22,6 +22,16 @@
   -fx-text-fill: #a6a9b2;
 }
 
+.label, .radio-button, .menu .label,
+.menu-item .label, .combo-box .list-cell,
+.combo-box-base .text {
+  -fx-text-fill: #d1d4dc;
+}
+
+.text-field {
+  -fx-prompt-text-fill: #787b86;
+}
+
 .estimate-panel {
   -fx-background-color: #131722;
   -fx-background-radius: 4;

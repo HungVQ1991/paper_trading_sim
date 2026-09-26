@@ -17,6 +17,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Priority?>
 <?import javafx.scene.layout.VBox?>
+<?import java.lang.String?>
 
 <BorderPane xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="com.trading.sim.ui.MainController" styleClass="app-shell">
@@ -59,7 +60,12 @@
         </VBox>
         <VBox HBox.hgrow="ALWAYS" styleClass="summary-card">
           <Label styleClass="summary-label" text="TOTAL P&amp;L" />
-          <Label styleClass="summary-value profit-text" text="+\$5,250.00  (+5.2%)" />
+          <Label text="+$5,250.00  (+5.2%)">
+            <styleClass>
+              <String fx:value="summary-value" />
+              <String fx:value="profit-text" />
+            </styleClass>
+          </Label>
         </VBox>
       </HBox>
     </VBox>

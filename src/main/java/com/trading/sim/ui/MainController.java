@@ -2,6 +2,7 @@ package com.trading.sim.ui;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Locale;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -89,10 +90,10 @@ public final class MainController {
     symbolColumn.setCellValueFactory(cell -> new SimpleStringProperty(cell.getValue().symbol()));
     TableColumn<QuoteRow, String> priceColumn = new TableColumn<>("Last Price");
     priceColumn.setCellValueFactory(cell -> new SimpleStringProperty(
-        String.format("$%,.2f", cell.getValue().price())));
+        String.format(Locale.US, "$%,.2f", cell.getValue().price())));
     TableColumn<QuoteRow, String> changeColumn = new TableColumn<>("Change");
     changeColumn.setCellValueFactory(cell -> new SimpleStringProperty(
-        String.format("%+.2f%%", cell.getValue().changePercent())));
+        String.format(Locale.US, "%+.2f%%", cell.getValue().changePercent())));
     watchlistTable.getColumns().setAll(List.of(symbolColumn, priceColumn, changeColumn));
     watchlistTable.setItems(quotes);
     watchlistTable.getSelectionModel().selectedItemProperty().addListener(
