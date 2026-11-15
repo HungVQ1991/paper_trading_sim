@@ -1,0 +1,65 @@
+.root {
+  -fx-background-color: #131722;
+  -fx-font-family: "Segoe UI", Helvetica, Arial, sans-serif;
+  -fx-text-fill: #d1d4dc;
+}
+
+.table-view {
+  -fx-background-color: #1e222d;
+  -fx-border-color: #2a2e39;
+}
+
+.table-view .column-header {
+  -fx-background-color: #2a2e39;
+  -fx-text-fill: #787b86;
+}
+
+.text-profit {
+  -fx-text-fill: #26a69a;
+  -fx-font-weight: bold;
+}
+
+.text-loss {
+  -fx-text-fill: #ef5350;
+  -fx-font-weight: bold;
+}
+
+.btn-buy {
+  -fx-background-color: #26a69a;
+  -fx-text-fill: white;
+  -fx-font-weight: bold;
+}
+
+.btn-sell {
+  -fx-background-color: #ef5350;
+  -fx-text-fill: white;
+  -fx-font-weight: bold;
+}
+
+.btn-action {
+  -fx-background-color: #2962ff;
+  -fx-text-fill: white;
+  -fx-font-weight: bold;
+}
+
+.btn-secondary {
+  -fx-background-color: #363c4e;
+  -fx-text-fill: #d1d4dc;
+}
+
+.text-field {
+  -fx-background-color: #1e222d;
+  -fx-text-fill: #d1d4dc;
+  -fx-border-color: #363c4e;
+  -fx-border-radius: 4;
+}
+
+.combo-box {
+  -fx-background-color: #1e222d;
+  -fx-border-color: #363c4e;
+  -fx-border-radius: 4;
+}
+
+.combo-box .list-cell {
+  -fx-text-fill: #d1d4dc;
+}
