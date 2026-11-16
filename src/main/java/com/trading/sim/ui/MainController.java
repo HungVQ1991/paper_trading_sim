@@ -20,6 +20,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Random;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
@@ -39,10 +40,9 @@ import javafx.scene.control.Slider;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.chart.CategoryAxis;
-import javafx.scene.chart.LineChart;
-import javafx.scene.chart.NumberAxis;
-import javafx.scene.chart.XYChart;
+import javafx.scene.canvas.Canvas;
+import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -92,13 +92,7 @@ public final class MainController {
   private TableView<Trade> tradeHistoryTable;
 
   @FXML
-  private LineChart<String, Number> priceChart;
-
-  @FXML
-  private CategoryAxis timeAxis;
-
-  @FXML
-  private NumberAxis priceAxis;
+  private Canvas priceCanvas;
 
   @FXML
   private Label chartTitleLabel;
@@ -122,6 +116,10 @@ public final class MainController {
     if (selected != null) {
       renderChartHistory(selected.getSymbol());
     }
+    priceCanvas.widthProperty().addListener(
+        (observable, oldValue, newValue) -> redrawSelectedChart());
+    priceCanvas.heightProperty().addListener(
+        (observable, oldValue, newValue) -> redrawSelectedChart());
     refreshDashboard();
     startMockFeed();
   }
@@ -347,10 +345,32 @@ public final class MainController {
   }
 
   private void seedQuotes() {
-    addQuote(new Quote("AAPL", 182.50, 1.20));
-    addQuote(new Quote("MSFT", 415.20, -0.45));
-    addQuote(new Quote("TSLA", 175.80, 3.10));
+    addQuoteWithHistory("AAPL", 182.50, 1.20);
+    addQuoteWithHistory("MSFT", 415.20, -0.45);
+    addQuoteWithHistory("TSLA", 175.80, 3.10);
     watchlistTable.getSelectionModel().selectFirst();
+  }
+
+  private void addQuoteWithHistory(String symbol, double price, double changePercent) {
+    Quote current = new Quote(symbol, price, changePercent);
+    List<Quote> history = priceHistories.computeIfAbsent(symbol, key -> new ArrayList<>());
+    Random random = new Random(symbol.hashCode());
+    double historicalPrice = price * (0.82 + random.nextDouble() * 0.12);
+    Instant timestamp = current.getTimestamp().minusSeconds(51L * 86_400L);
+    double previousPrice = historicalPrice;
+    for (int index = 0; index < 51; index++) {
+      double drift = (price - historicalPrice) / 51.0;
+      double shock = (random.nextDouble() - 0.48) * price * 0.018;
+      double cyclicalMove = Math.sin(index * 0.42 + symbol.hashCode()) * price * 0.006;
+      double nextPrice = Math.max(1.0, previousPrice + drift + shock + cyclicalMove);
+      double change = (nextPrice - previousPrice) / previousPrice * 100.0;
+      history.add(new Quote(symbol, nextPrice, change, timestamp));
+      previousPrice = nextPrice;
+      timestamp = timestamp.plusSeconds(86_400L);
+    }
+    history.add(current);
+    latestQuotes.put(symbol, current);
+    watchlist.add(current);
   }
 
   private void startMockFeed() {
@@ -452,12 +472,96 @@ public final class MainController {
       return;
     }
     int start = Math.max(0, history.size() - range.points());
-    XYChart.Series<String, Number> series = new XYChart.Series<>();
-    for (Quote quote : history.subList(start, history.size())) {
-      series.getData().add(new XYChart.Data<>(
-          formatChartTime(quote.getTimestamp()), quote.getPrice()));
+    List<Candle> candles = createCandles(history.subList(start, history.size()));
+    drawCandlestickChart(symbol, candles);
+  }
+
+  private void redrawSelectedChart() {
+    Quote selected = watchlistTable.getSelectionModel().getSelectedItem();
+    if (selected != null) {
+      renderChartHistory(selected.getSymbol());
     }
-    priceChart.getData().setAll(series);
+  }
+
+  private void drawCandlestickChart(String symbol, List<Candle> candles) {
+    double width = priceCanvas.getWidth();
+    double height = priceCanvas.getHeight();
+    if (width <= 0.0 || height <= 0.0 || candles.isEmpty()) {
+      return;
+    }
+    double left = 48.0;
+    double right = width - 12.0;
+    double top = 14.0;
+    double bottom = height - 28.0;
+    double plotWidth = right - left;
+    double plotHeight = bottom - top;
+    double latestPrice = candles.get(candles.size() - 1).close();
+    double low = candles.stream().mapToDouble(Candle::low).min().orElse(latestPrice);
+    double high = candles.stream().mapToDouble(Candle::high).max().orElse(latestPrice);
+    double padding = Math.max((high - low) * 0.08, latestPrice * 0.002);
+    low -= padding;
+    high += padding;
+
+    GraphicsContext graphics = priceCanvas.getGraphicsContext2D();
+    graphics.setFill(Color.web("#1e222d"));
+    graphics.fillRect(0, 0, width, height);
+    graphics.setFont(javafx.scene.text.Font.font("Segoe UI", 10));
+    graphics.setStroke(Color.web("#2a2e39"));
+    for (int line = 0; line <= 5; line++) {
+      double y = top + plotHeight * line / 5.0;
+      graphics.strokeLine(left, y, right, y);
+      graphics.setFill(Color.web("#787b86"));
+      graphics.fillText(String.format(
+          Locale.US, "$%.2f", high - (high - low) * line / 5.0), 4, y + 4);
+    }
+
+    double candleSlot = plotWidth / candles.size();
+    double candleWidth = Math.max(2.0, candleSlot * 0.58);
+    for (int index = 0; index < candles.size(); index++) {
+      Candle candle = candles.get(index);
+      double x = left + candleSlot * index + candleSlot / 2.0;
+      double highY = priceY(candle.high(), low, high, top, plotHeight);
+      double lowY = priceY(candle.low(), low, high, top, plotHeight);
+      double openY = priceY(candle.open(), low, high, top, plotHeight);
+      double closeY = priceY(candle.close(), low, high, top, plotHeight);
+      Color candleColor = candle.close() >= candle.open()
+          ? Color.web("#26a69a") : Color.web("#ef5350");
+      graphics.setStroke(candleColor);
+      graphics.setFill(candleColor);
+      graphics.strokeLine(x, highY, x, lowY);
+      graphics.fillRect(x - candleWidth / 2.0, Math.min(openY, closeY),
+          candleWidth, Math.max(1.5, Math.abs(closeY - openY)));
+    }
+
+    graphics.setFill(Color.web("#787b86"));
+    int labelStep = Math.max(1, candles.size() / 6);
+    for (int index = 0; index < candles.size(); index += labelStep) {
+      Candle candle = candles.get(index);
+      double x = left + candleSlot * index + candleSlot / 2.0;
+      graphics.fillText(formatChartTime(candle.timestamp()), x - 20, height - 8);
+    }
+    graphics.setFill(Color.web("#d1d4dc"));
+    graphics.fillText(String.format(Locale.US, "%s  %.2f", symbol, latestPrice), left, 12);
+  }
+
+  private List<Candle> createCandles(List<Quote> quotes) {
+    List<Candle> candles = new ArrayList<>();
+    double previousClose = quotes.get(0).getPrice();
+    for (Quote quote : quotes) {
+      double close = quote.getPrice();
+      candles.add(new Candle(
+          quote.getTimestamp(),
+          previousClose,
+          Math.max(previousClose, close),
+          Math.min(previousClose, close),
+          close));
+      previousClose = close;
+    }
+    return candles;
+  }
+
+  private double priceY(double price, double low, double high, double top, double height) {
+    return top + (high - price) / (high - low) * height;
   }
 
   private ChartRange selectedChartRange() {
@@ -523,6 +627,10 @@ public final class MainController {
     private int points() {
       return points;
     }
+  }
+
+  private record Candle(
+      Instant timestamp, double open, double high, double low, double close) {
   }
 
   private static <T> TableColumn<T, String> column(

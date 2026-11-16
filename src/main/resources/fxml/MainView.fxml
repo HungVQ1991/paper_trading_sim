@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.chart.CategoryAxis?>
-<?import javafx.scene.chart.LineChart?>
-<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.canvas.Canvas?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
@@ -94,15 +92,7 @@
                       showTickLabels="false" snapToTicks="true" HBox.hgrow="ALWAYS" />
               <Label fx:id="chartRangeLabel" minWidth="72" text="24 hours" />
             </HBox>
-            <LineChart fx:id="priceChart" animated="false" createSymbols="false"
-                       legendVisible="false" VBox.vgrow="ALWAYS">
-              <xAxis>
-                <CategoryAxis fx:id="timeAxis" label="Time" />
-              </xAxis>
-              <yAxis>
-                <NumberAxis fx:id="priceAxis" label="Price" />
-              </yAxis>
-            </LineChart>
+            <Canvas fx:id="priceCanvas" height="320" width="760" VBox.vgrow="ALWAYS" />
           </VBox>
         </items>
       </SplitPane>
