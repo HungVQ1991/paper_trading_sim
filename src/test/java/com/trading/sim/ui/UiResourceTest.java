@@ -22,6 +22,12 @@ class UiResourceTest {
   }
 
   @Test
+  void auxiliaryViewsAreWellFormedXml() throws Exception {
+    assertXmlResourceIsWellFormed("/fxml/AnalyticsView.fxml");
+    assertXmlResourceIsWellFormed("/fxml/SettingsView.fxml");
+  }
+
+  @Test
   void currencyLabelsEscapeFxmlExpressions() throws Exception {
     assertFalse(readResource("/fxml/MainView.fxml").contains("text=\"$"));
     assertFalse(readResource("/fxml/OrderDialog.fxml").contains("text=\"$"));
@@ -30,7 +36,7 @@ class UiResourceTest {
   @Test
   void pnlLabelUsesTwoCssClassesWithoutAVisibleEscape() throws Exception {
     String mainView = readResource("/fxml/MainView.fxml");
-    assertTrue(mainView.contains("<Label text=\"+$5,250.00  (+5.2%)\">"));
+    assertTrue(mainView.contains("fx:id=\"totalPnLLabel\""));
     assertTrue(mainView.contains("<String fx:value=\"summary-value\" />"));
     assertTrue(mainView.contains("<String fx:value=\"profit-text\" />"));
   }

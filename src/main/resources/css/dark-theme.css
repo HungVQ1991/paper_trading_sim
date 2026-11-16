@@ -1,6 +1,6 @@
 .root {
   -fx-background-color: #131722;
-  -fx-font-family: "Segoe UI", Arial, sans-serif;
+  -fx-font-family: "Segoe UI", Helvetica, Arial, sans-serif;
   -fx-text-fill: #d1d4dc;
 }
 
@@ -131,6 +131,21 @@
   -fx-background-color: #35b8aa;
 }
 
+.sell-button {
+  -fx-background-color: #ef5350;
+  -fx-font-weight: bold;
+  -fx-text-fill: white;
+}
+
+.sell-button:hover {
+  -fx-background-color: #f66b68;
+}
+
+.button {
+  -fx-background-radius: 3;
+  -fx-cursor: hand;
+}
+
 .chart-plot-background {
   -fx-background-color: #1e222d;
 }
@@ -142,4 +157,13 @@
 
 .axis {
   -fx-tick-label-fill: #787b86;
+}
+
+.axis-label {
+  -fx-text-fill: #a6a9b2;
+}
+
+.chart-horizontal-grid-lines,
+.chart-vertical-grid-lines {
+  -fx-stroke: #2a2e39;
 }

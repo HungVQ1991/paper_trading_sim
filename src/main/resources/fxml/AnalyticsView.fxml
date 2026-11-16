@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.VBox?>
+<VBox spacing="18" styleClass="dialog-shell" xmlns="http://javafx.com/javafx/21"
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.trading.sim.ui.AnalyticsController">
+  <padding><Insets bottom="24" left="24" right="24" top="24" /></padding>
+  <Label styleClass="dialog-title" text="Performance Analytics" />
+  <GridPane hgap="24" vgap="18">
+    <Label styleClass="summary-label" text="EXECUTED TRADES" GridPane.rowIndex="0" />
+    <Label fx:id="tradeCountLabel" styleClass="summary-value"
+           text="0" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+    <Label styleClass="summary-label" text="WIN RATE" GridPane.rowIndex="1" />
+    <Label fx:id="winRateLabel" styleClass="summary-value"
+           text="0.00%" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+    <Label styleClass="summary-label" text="REALIZED P&amp;L" GridPane.rowIndex="2" />
+    <Label fx:id="realizedPnLLabel" styleClass="summary-value profit-text"
+           text="\$0.00" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+    <Label styleClass="summary-label" text="MAX DRAWDOWN" GridPane.rowIndex="3" />
+    <Label fx:id="maxDrawdownLabel" styleClass="summary-value"
+           text="0.00%" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+  </GridPane>
+</VBox>

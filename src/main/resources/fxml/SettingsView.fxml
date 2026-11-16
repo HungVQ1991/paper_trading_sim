@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import java.lang.String?>
+<VBox spacing="16" styleClass="dialog-shell" xmlns="http://javafx.com/javafx/21"
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.trading.sim.ui.SettingsController">
+  <padding><Insets bottom="24" left="24" right="24" top="24" /></padding>
+  <Label styleClass="dialog-title" text="Provider Settings" />
+  <Label styleClass="dialog-subtitle"
+         text="The current build runs offline using the deterministic Mock Demo feed." wrapText="true" />
+  <Label text="Provider" />
+  <ComboBox fx:id="providerComboBox" maxWidth="1.7976931348623157E308">
+    <items><String fx:value="Mock Demo" /></items>
+  </ComboBox>
+  <Label text="API key (optional)" />
+  <PasswordField fx:id="apiKeyField" promptText="Not required for Mock Demo" />
+  <HBox alignment="CENTER_RIGHT" spacing="10">
+    <Label fx:id="statusLabel" styleClass="validation-message" HBox.hgrow="ALWAYS" />
+    <Button onAction="#saveSettings" styleClass="buy-button" text="Save" />
+  </HBox>
+</VBox>

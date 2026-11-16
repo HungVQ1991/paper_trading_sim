@@ -14,6 +14,7 @@ public final class MainApp extends Application {
   public void start(Stage stage) throws IOException {
     FXMLLoader loader = new FXMLLoader(MainApp.class.getResource("/fxml/MainView.fxml"));
     Parent root = loader.load();
+    MainController controller = loader.getController();
     Scene scene = new Scene(root, 1440, 900);
     scene.getStylesheets().add(
         MainApp.class.getResource("/css/dark-theme.css").toExternalForm());
@@ -22,6 +23,7 @@ public final class MainApp extends Application {
     stage.setMinWidth(1100);
     stage.setMinHeight(720);
     stage.setScene(scene);
+    stage.setOnCloseRequest(event -> controller.shutdown());
     stage.show();
   }
 
